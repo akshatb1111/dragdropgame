@@ -3,233 +3,113 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fill Your Plate</title>
-  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Raleway', sans-serif;
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(135deg, #f0f4f8, #e0f7fa); /* Soft gradient background */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      flex-direction: column;
-      overflow: hidden;
-      text-align: center;
-      position: relative;
-    }
-
-    /* Flex container for centralizing the content */
-    .container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 20px;
-      max-width: 1200px;
-      width: 100%;
-      padding: 20px;
-      box-sizing: border-box;
-    }
-
-    /* Logo Styling */
-    #logo {
-      width: 180px;
-      height: auto;
-      margin-bottom: 20px;
-    }
-
-    /* 3D plate effect */
-    #plate {
-      border-radius: 50%;
-      width: 400px;
-      height: 400px;
-      background: #f9f9f9; /* Soft cream background */
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-      border: 8px solid #f1c40f;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) rotateX(15deg) rotateY(15deg);
-      transition: transform 0.2s ease-out;
-    }
-
-    #plate span {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: #aaa;
-      font-size: 22px;
-      font-weight: 700;
-    }
-
-    /* Food items styling */
-    .item {
-      width: 90px;
-      height: 90px;
-      cursor: pointer;
-      border-radius: 12px;
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s, box-shadow 0.3s;
-      border: 2px solid #e6e6e6; /* Soft border color */
-      position: absolute;
-    }
-
-    .item:hover {
-      transform: translateY(-10px) scale(1.1);
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-    }
-
-    .item-label {
-      font-size: 14px;
-      text-align: center;
-      margin-top: 10px;
-      color: #555;
-      font-weight: 500;
-    }
-
-    /* Reset Button Styling */
-    #resetButton {
-      background: linear-gradient(135deg, #FFB6B9, #FFC3A0); /* Soft pastel gradient */
-      color: white;
-      padding: 15px 35px;
-      border-radius: 50px;
-      border: none;
-      font-size: 20px;
-      cursor: pointer;
-      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-      transition: transform 0.2s ease, background-color 0.3s ease;
-      margin-top: 30px;
-    }
-
-    #resetButton:hover {
-      background-color: #FF9B9B;
-      transform: scale(1.05);
-    }
-
-    /* Flexibility for smaller screens */
-    @media (max-width: 900px) {
-      .container {
-        flex-direction: column;
-        justify-content: center;
-      }
-
-      #plate {
-        width: 300px;
-        height: 300px;
-      }
-
-      .item {
-        width: 70px;
-        height: 70px;
-      }
-    }
-
-  </style>
+  <title>Drag and Drop Meal Game</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
-  <!-- Logo Image -->
-  <img id="logo" src="logo.png" alt="Logo">
-
-  <div class="container">
-    <!-- Food Items positioned randomly on the screen -->
-    <div class="item" style="top: 20%; left: 15%;" draggable="true">
-      <img src="chapati.png" class="item">
-      <p class="item-label">Chapati</p>
+  <div class="game-container">
+    <header>
+      <img src="logo.png" alt="Brain to Body Logo" class="logo">
+      <h1>Create Your Meal 🍽️</h1>
+    </header>
+    <p class="instructions">Drag and drop the food items onto the plate to create your perfect meal! Click "Reset Plate" to start fresh.</p>
+    <div class="plate-container">
+      <div class="plate" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <p class="placeholder">Drop items here</p>
+      </div>
+      <button class="reset-button" onclick="resetPlate()">Reset Plate</button>
     </div>
-    <div class="item" style="top: 10%; left: 50%;" draggable="true">
-      <img src="rice.png" class="item">
-      <p class="item-label">Rice</p>
-    </div>
-    <div class="item" style="top: 30%; left: 80%;" draggable="true">
-      <img src="green.png" class="item">
-      <p class="item-label">Green Sabji</p>
-    </div>
-    <div class="item" style="top: 70%; left: 40%;" draggable="true">
-      <img src="pulses.png" class="item">
-      <p class="item-label">Pulses</p>
-    </div>
-    <div class="item" style="top: 50%; left: 5%;" draggable="true">
-      <img src="vegetables.png" class="item">
-      <p class="item-label">Vegetables</p>
-    </div>
-    <div class="item" style="top: 40%; left: 75%;" draggable="true">
-      <img src="daal.png" class="item">
-      <p class="item-label">Daal</p>
-    </div>
-    <div class="item" style="top: 60%; left: 30%;" draggable="true">
-      <img src="salad.png" class="item">
-      <p class="item-label">Salad</p>
-    </div>
-    <div class="item" style="top: 20%; left: 65%;" draggable="true">
-      <img src="sweets.png" class="item">
-      <p class="item-label">Sweets</p>
-    </div>
-    <div class="item" style="top: 80%; left: 85%;" draggable="true">
-      <img src="pastry.png" class="item">
-      <p class="item-label">Pastry</p>
-    </div>
-    <div class="item" style="top: 10%; left: 25%;" draggable="true">
-      <img src="chips.png" class="item">
-      <p class="item-label">Chips</p>
-    </div>
-    <div class="item" style="top: 60%; left: 55%;" draggable="true">
-      <img src="buttermilk.png" class="item">
-      <p class="item-label">Buttermilk</p>
-    </div>
-    <div class="item" style="top: 75%; left: 20%;" draggable="true">
-      <img src="curd.png" class="item">
-      <p class="item-label">Curd</p>
-    </div>
-    <div class="item" style="top: 30%; left: 90%;" draggable="true">
-      <img src="softdrink.png" class="item">
-      <p class="item-label">Soft Drink</p>
-    </div>
-    <div class="item" style="top: 50%; left: 60%;" draggable="true">
-      <img src="samosa.png" class="item">
-      <p class="item-label">Samosa</p>
-    </div>
-    <div class="item" style="top: 65%; left: 15%;" draggable="true">
-      <img src="vadapav.png" class="item">
-      <p class="item-label">Vada Pav</p>
-    </div>
-    <div class="item" style="top: 45%; left: 35%;" draggable="true">
-      <img src="burger.png" class="item">
-      <p class="item-label">Burger</p>
-    </div>
-    <div class="item" style="top: 10%; left: 80%;" draggable="true">
-      <img src="sandwich.png" class="item">
-      <p class="item-label">Sandwich</p>
-    </div>
-    <div class="item" style="top: 60%; left: 70%;" draggable="true">
-      <img src="pizza.png" class="item">
-      <p class="item-label">Pizza</p>
-    </div>
-    <div class="item" style="top: 55%; left: 25%;" draggable="true">
-      <img src="papad.png" class="item">
-      <p class="item-label">Papad</p>
-    </div>
-    <div class="item" style="top: 35%; left: 10%;" draggable="true">
-      <img src="chutney.png" class="item">
-      <p class="item-label">Chutney</p>
-    </div>
-    <div class="item" style="top: 15%; left: 40%;" draggable="true">
-      <img src="dessert.png" class="item">
-      <p class="item-label">Dessert</p>
+    <div class="items-container">
+      <h2>Food Items</h2>
+      <div class="items">
+        <div class="item" draggable="true" ondragstart="drag(event)" id="chapati">
+          <img src="chapati.png" alt="Chapati">
+          <span>Chapati</span>
+        </div>
+        <div class="item" draggable="true" ondragstart="drag(event)" id="rice">
+          <img src="rice.png" alt="Rice">
+          <span>Rice</span>
+        </div>
+        <div class="item" draggable="true" ondragstart="drag(event)" id="green">
+          <img src="green.png" alt="Green Salad">
+          <span>Green Salad</span>
+        </div>
+        <div class="item" draggable="true" ondragstart="drag(event)" id="pulses">
+          <img src="pulses.png" alt="Pulses">
+          <span>Pulses</span>
+        </div>
+        <div class="item" draggable="true" ondragstart="drag(event)" id="vegetables">
+          <img src="vegetables.png" alt="Vegetables">
+          <span>Vegetables</span>
+        </div>
+        <div class="item" draggable="true" ondragstart="drag(event)" id="daal">
+          <img src="daal.png" alt="Daal">
+          <span>Daal</span>
+        </div>
+        <div class="item" draggable="true" ondragstart="drag(event)" id="salad">
+          <img src="salad.png" alt="Salad">
+          <span>Salad</span>
+        </div>
+        <div class="item" draggable="true" ondragstart="drag(event)" id="sweets">
+          <img src="sweets.png" alt="Sweets">
+          <span>Sweets</span>
+        </div>
+        <div class="item" draggable="true" ondragstart="drag(event)" id="pastry">
+          <img src="pastry.png" alt="Pastry">
+          <span>Pastry</span>
+        </div>
+        <div class="item" draggable="true" ondragstart="drag(event)" id="chips">
+          <img src="chips.png" alt="Chips">
+          <span>Chips</span>
+        </div>
+        <div class="item" draggable="true" ondragstart="drag(event)" id="buttermilk">
+          <img src="buttermilk.png" alt="Buttermilk">
+          <span>Buttermilk</span>
+        </div>
+        <div class="item" draggable="true" ondragstart="drag(event)" id="curd">
+          <img src="curd.png" alt="Curd">
+          <span>Curd</span>
+        </div>
+        <div class="item" draggable="true" ondragstart="drag(event)" id="softdrink">
+          <img src="softdrink.png" alt="Soft Drink">
+          <span>Soft Drink</span>
+        </div>
+        <div class="item" draggable="true" ondragstart="drag(event)" id="samosa">
+          <img src="samosa.png" alt="Samosa">
+          <span>Samosa</span>
+        </div>
+        <div class="item" draggable="true" ondragstart="drag(event)" id="vadapav">
+          <img src="vadapav.png" alt="Vada Pav">
+          <span>Vada Pav</span>
+        </div>
+        <div class="item" draggable="true" ondragstart="drag(event)" id="burger">
+          <img src="burger.png" alt="Burger">
+          <span>Burger</span>
+        </div>
+        <div class="item" draggable="true" ondragstart="drag(event)" id="sandwich">
+          <img src="sandwich.png" alt="Sandwich">
+          <span>Sandwich</span>
+        </div>
+        <div class="item" draggable="true" ondragstart="drag(event)" id="pizza">
+          <img src="pizza.png" alt="Pizza">
+          <span>Pizza</span>
+        </div>
+        <div class="item" draggable="true" ondragstart="drag(event)" id="papad">
+          <img src="papad.png" alt="Papad">
+          <span>Papad</span>
+        </div>
+        <div class="item" draggable="true" ondragstart="drag(event)" id="chutney">
+          <img src="chutney.png" alt="Chutney">
+          <span>Chutney</span>
+        </div>
+        <div class="item" draggable="true" ondragstart="drag(event)" id="dessert">
+          <img src="dessert.png" alt="Dessert">
+          <span>Dessert</span>
+        </div>
+      </div>
     </div>
   </div>
-
-  <!-- Plate -->
-  <div id="plate">
-    <span>Drag items here</span>
-  </div>
-
-  <!-- Reset Button -->
-  <button id="resetButton">Reset Plate</button>
-
-  <script src="game.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
