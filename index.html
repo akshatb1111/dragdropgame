@@ -249,7 +249,7 @@
       </div>
     </div>
   </div>
-  <script>
+<script>
     function allowDrop(event) {
       event.preventDefault();
     }
@@ -265,6 +265,10 @@
       const plate = event.target.closest(".plate");
 
       if (plate && !plate.contains(item)) {
+        // Remove placeholder text when the first item is dropped
+        const placeholder = plate.querySelector(".placeholder");
+        if (placeholder) placeholder.style.display = "none";
+
         plate.appendChild(item);
       }
     }
@@ -277,6 +281,10 @@
       items.forEach(item => {
         itemsContainer.appendChild(item);
       });
+
+      // Restore placeholder text
+      const placeholder = plate.querySelector(".placeholder");
+      if (placeholder) placeholder.style.display = "block";
     }
   </script>
 </body>
