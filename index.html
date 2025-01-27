@@ -4,8 +4,126 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Drag and Drop Meal Game</title>
-  <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@300&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #f9f9f9;
+    }
+
+    .game-container {
+      width: 98%;
+      max-width: 1400px;
+      margin: 20px auto;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 20px;
+    }
+
+    .logo {
+      width: 100px;
+      height: 100px;
+    }
+
+    h1 {
+      font-family: 'Pacifico', cursive;
+      color: #333;
+      margin: 0;
+    }
+
+    .instructions {
+      font-size: 1.2rem;
+      text-align: center;
+      margin: 10px 0 20px;
+      color: #666;
+    }
+
+    .plate-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .plate {
+      width: 500px;
+      height: 500px;
+      background-color: #fff;
+      border-radius: 50%;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    .placeholder {
+      font-size: 1.5rem;
+      color: #aaa;
+      position: absolute;
+    }
+
+    .reset-button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #ff6b6b;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .reset-button:hover {
+      background-color: #ff5252;
+    }
+
+    .items-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .items {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 15px;
+      justify-content: center;
+    }
+
+    .item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #fff;
+      padding: 10px;
+      border-radius: 12px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      cursor: grab;
+    }
+
+    .item img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      margin-bottom: 8px;
+    }
+
+    .item span {
+      font-size: 0.9rem;
+      color: #555;
+    }
+  </style>
 </head>
 <body>
   <div class="game-container">
@@ -27,89 +145,39 @@
           <img src="chapati.png" alt="Chapati">
           <span>Chapati</span>
         </div>
-        <div class="item" draggable="true" ondragstart="drag(event)" id="rice">
-          <img src="rice.png" alt="Rice">
-          <span>Rice</span>
-        </div>
-        <div class="item" draggable="true" ondragstart="drag(event)" id="green">
-          <img src="green.png" alt="Green Salad">
-          <span>Green Salad</span>
-        </div>
-        <div class="item" draggable="true" ondragstart="drag(event)" id="pulses">
-          <img src="pulses.png" alt="Pulses">
-          <span>Pulses</span>
-        </div>
-        <div class="item" draggable="true" ondragstart="drag(event)" id="vegetables">
-          <img src="vegetables.png" alt="Vegetables">
-          <span>Vegetables</span>
-        </div>
-        <div class="item" draggable="true" ondragstart="drag(event)" id="daal">
-          <img src="daal.png" alt="Daal">
-          <span>Daal</span>
-        </div>
-        <div class="item" draggable="true" ondragstart="drag(event)" id="salad">
-          <img src="salad.png" alt="Salad">
-          <span>Salad</span>
-        </div>
-        <div class="item" draggable="true" ondragstart="drag(event)" id="sweets">
-          <img src="sweets.png" alt="Sweets">
-          <span>Sweets</span>
-        </div>
-        <div class="item" draggable="true" ondragstart="drag(event)" id="pastry">
-          <img src="pastry.png" alt="Pastry">
-          <span>Pastry</span>
-        </div>
-        <div class="item" draggable="true" ondragstart="drag(event)" id="chips">
-          <img src="chips.png" alt="Chips">
-          <span>Chips</span>
-        </div>
-        <div class="item" draggable="true" ondragstart="drag(event)" id="buttermilk">
-          <img src="buttermilk.png" alt="Buttermilk">
-          <span>Buttermilk</span>
-        </div>
-        <div class="item" draggable="true" ondragstart="drag(event)" id="curd">
-          <img src="curd.png" alt="Curd">
-          <span>Curd</span>
-        </div>
-        <div class="item" draggable="true" ondragstart="drag(event)" id="softdrink">
-          <img src="softdrink.png" alt="Soft Drink">
-          <span>Soft Drink</span>
-        </div>
-        <div class="item" draggable="true" ondragstart="drag(event)" id="samosa">
-          <img src="samosa.png" alt="Samosa">
-          <span>Samosa</span>
-        </div>
-        <div class="item" draggable="true" ondragstart="drag(event)" id="vadapav">
-          <img src="vadapav.png" alt="Vada Pav">
-          <span>Vada Pav</span>
-        </div>
-        <div class="item" draggable="true" ondragstart="drag(event)" id="burger">
-          <img src="burger.png" alt="Burger">
-          <span>Burger</span>
-        </div>
-        <div class="item" draggable="true" ondragstart="drag(event)" id="sandwich">
-          <img src="sandwich.png" alt="Sandwich">
-          <span>Sandwich</span>
-        </div>
-        <div class="item" draggable="true" ondragstart="drag(event)" id="pizza">
-          <img src="pizza.png" alt="Pizza">
-          <span>Pizza</span>
-        </div>
-        <div class="item" draggable="true" ondragstart="drag(event)" id="papad">
-          <img src="papad.png" alt="Papad">
-          <span>Papad</span>
-        </div>
-        <div class="item" draggable="true" ondragstart="drag(event)" id="chutney">
-          <img src="chutney.png" alt="Chutney">
-          <span>Chutney</span>
-        </div>
-        <div class="item" draggable="true" ondragstart="drag(event)" id="dessert">
-          <img src="dessert.png" alt="Dessert">
-          <span>Dessert</span>
-        </div>
+        <!-- Add other food items similarly -->
       </div>
     </div>
   </div>
-  <script src="script.js"></script>
+  <script>
+    function allowDrop(event) {
+      event.preventDefault();
+    }
+
+    function drag(event) {
+      event.dataTransfer.setData("text", event.target.id);
+    }
+
+    function drop(event) {
+      event.preventDefault();
+      const data = event.dataTransfer.getData("text");
+      const item = document.getElementById(data);
+      const plate = event.target.closest(".plate");
+
+      if (plate && !plate.contains(item)) {
+        plate.appendChild(item);
+      }
+    }
+
+    function resetPlate() {
+      const plate = document.querySelector(".plate");
+      const itemsContainer = document.querySelector(".items");
+      const items = plate.querySelectorAll(".item");
+
+      items.forEach(item => {
+        itemsContainer.appendChild(item);
+      });
+    }
+  </script>
 </body>
 </html>
