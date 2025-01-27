@@ -10,6 +10,7 @@
       font-family: 'Raleway', sans-serif;
       text-align: center;
       background-color: #f9f9f9;
+      margin: 0;
     }
     h1 {
       font-family: 'Playfair Display', serif;
@@ -20,10 +21,16 @@
     #logo {
       position: absolute;
       top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
+      left: 20px;
       width: 150px;
       height: auto;
+    }
+    .header-text {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 18px;
+      font-weight: 500;
     }
     .container {
       display: flex;
@@ -36,7 +43,7 @@
       width: 250px;
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      gap: 20px;
       align-items: center;
       height: 500px;
       overflow-y: scroll;
@@ -103,38 +110,115 @@
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
       transform: scale(1.2);
     }
+    /* Label Styling */
+    .item-label {
+      font-size: 14px;
+      text-align: center;
+      margin-top: 10px;
+      color: #333;
+    }
   </style>
 </head>
 <body>
   <!-- Logo Image -->
-  <img id="logo" src="logo.png" alt="Logo">
+  <img id="logo" src="/mnt/data/image.png" alt="Logo">
 
-  <h1>Fill Your Plate</h1>
-  <p>Drag and drop food items into the plate!</p>
+  <!-- Header Text -->
+  <div class="header-text">
+    <h1>Fill Your Plate</h1>
+    <p>Drag and drop food items into the plate!</p>
+  </div>
+
   <div class="container">
+    <!-- Inventory -->
     <div class="inventory">
-      <img src="chapati.png" class="item" draggable="true">
-      <img src="rice.png" class="item" draggable="true">
-      <img src="green.png" class="item" draggable="true">
-      <img src="pulses.png" class="item" draggable="true">
-      <img src="vegetables.png" class="item" draggable="true">
-      <img src="daal.png" class="item" draggable="true">
-      <img src="salad.png" class="item" draggable="true">
-      <img src="sweets.png" class="item" draggable="true">
-      <img src="pastry.png" class="item" draggable="true">
-      <img src="chips.png" class="item" draggable="true">
-      <img src="buttermilk.png" class="item" draggable="true">
-      <img src="curd.png" class="item" draggable="true">
-      <img src="softdrink.png" class="item" draggable="true">
-      <img src="samosa.png" class="item" draggable="true">
-      <img src="vadapav.png" class="item" draggable="true">
-      <img src="burger.png" class="item" draggable="true">
-      <img src="sandwich.png" class="item" draggable="true">
-      <img src="pizza.png" class="item" draggable="true">
-      <img src="papad.png" class="item" draggable="true">
-      <img src="chutney.png" class="item" draggable="true">
-      <img src="dessert.png" class="item" draggable="true">
+      <div>
+        <img src="chapati.png" class="item" draggable="true">
+        <p class="item-label">Chapati</p>
+      </div>
+      <div>
+        <img src="rice.png" class="item" draggable="true">
+        <p class="item-label">Rice</p>
+      </div>
+      <div>
+        <img src="green.png" class="item" draggable="true">
+        <p class="item-label">Green Sabji</p>
+      </div>
+      <div>
+        <img src="pulses.png" class="item" draggable="true">
+        <p class="item-label">Pulses</p>
+      </div>
+      <div>
+        <img src="vegetables.png" class="item" draggable="true">
+        <p class="item-label">Vegetables</p>
+      </div>
+      <div>
+        <img src="daal.png" class="item" draggable="true">
+        <p class="item-label">Daal</p>
+      </div>
+      <div>
+        <img src="salad.png" class="item" draggable="true">
+        <p class="item-label">Salad</p>
+      </div>
+      <div>
+        <img src="sweets.png" class="item" draggable="true">
+        <p class="item-label">Sweets</p>
+      </div>
+      <div>
+        <img src="pastry.png" class="item" draggable="true">
+        <p class="item-label">Pastry</p>
+      </div>
+      <div>
+        <img src="chips.png" class="item" draggable="true">
+        <p class="item-label">Chips</p>
+      </div>
+      <div>
+        <img src="buttermilk.png" class="item" draggable="true">
+        <p class="item-label">Buttermilk</p>
+      </div>
+      <div>
+        <img src="curd.png" class="item" draggable="true">
+        <p class="item-label">Curd</p>
+      </div>
+      <div>
+        <img src="softdrink.png" class="item" draggable="true">
+        <p class="item-label">Soft Drink</p>
+      </div>
+      <div>
+        <img src="samosa.png" class="item" draggable="true">
+        <p class="item-label">Samosa</p>
+      </div>
+      <div>
+        <img src="vadapav.png" class="item" draggable="true">
+        <p class="item-label">Vada Pav</p>
+      </div>
+      <div>
+        <img src="burger.png" class="item" draggable="true">
+        <p class="item-label">Burger</p>
+      </div>
+      <div>
+        <img src="sandwich.png" class="item" draggable="true">
+        <p class="item-label">Sandwich</p>
+      </div>
+      <div>
+        <img src="pizza.png" class="item" draggable="true">
+        <p class="item-label">Pizza</p>
+      </div>
+      <div>
+        <img src="papad.png" class="item" draggable="true">
+        <p class="item-label">Papad</p>
+      </div>
+      <div>
+        <img src="chutney.png" class="item" draggable="true">
+        <p class="item-label">Chutney</p>
+      </div>
+      <div>
+        <img src="dessert.png" class="item" draggable="true">
+        <p class="item-label">Dessert</p>
+      </div>
     </div>
+
+    <!-- Plate -->
     <div id="plate">
       <span>Drag items here</span>
     </div>
@@ -146,3 +230,4 @@
   <script src="game.js"></script>
 </body>
 </html>
+
