@@ -8,126 +8,129 @@
   <style>
     body {
       font-family: 'Raleway', sans-serif;
-      text-align: center;
-      background-color: #f9f9f9;
       margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #f0f4f8, #e0f7fa); /* Soft gradient background */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      text-align: center;
+      overflow: hidden;
     }
-    h1 {
-      font-family: 'Playfair Display', serif;
-      color: #4caf50;
-      font-size: 40px;
-      margin-top: 20px;
-    }
+
+    /* Logo styling */
     #logo {
-      position: absolute;
-      top: 10px;
-      left: 20px;
-      width: 150px;
+      width: 180px;
       height: auto;
+      margin-bottom: 30px;
     }
-    .header-text {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      font-size: 18px;
-      font-weight: 500;
-    }
+
+    /* Flex container for the page */
     .container {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-      margin-top: 100px;
-      padding: 0 20px;
+      align-items: center;
+      width: 90%;
+      max-width: 1200px;
+      padding: 20px;
+      flex-wrap: wrap;
     }
+
+    /* Inventory box with scrollable items */
     .inventory {
       width: 250px;
+      height: 500px;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 15px;
       align-items: center;
-      height: 500px;
-      overflow-y: scroll;
+      overflow-y: auto;
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      border-radius: 15px;
+      background-color: #ffffff;
     }
+
+    /* 3D plate effect */
     #plate {
-      border: 5px solid #f1c40f;
       border-radius: 50%;
       width: 500px;
       height: 500px;
-      background-color: #fff;
+      background: #f9f9f9; /* Soft cream background */
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      border: 8px solid #f1c40f;
       position: relative;
-      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s ease-in-out;
+      overflow: hidden;
+      margin-top: 20px;
+      transition: transform 0.2s ease-out;
+      transform: rotateX(15deg) rotateY(15deg);
     }
+
     #plate span {
       position: absolute;
-      top: 40%;
+      top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      color: #ccc;
-      font-size: 20px;
+      color: #aaa;
+      font-size: 22px;
+      font-weight: 700;
     }
+
+    /* Hover 3D effect for items */
     .item {
-      width: 80px;
-      height: 80px;
-      cursor: grab;
-      transition: transform 0.3s;
-      border-radius: 8px;
-    }
-    .item:hover {
-      transform: scale(1.1);
-    }
-    /* Bounce animation */
-    @keyframes bounce {
-      0%, 100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-15px);
-      }
-    }
-    .bouncing {
-      animation: bounce 0.5s ease;
-    }
-    /* Reset Button */
-    #resetButton {
-      margin-top: 30px;
-      padding: 12px 30px;
-      background-color: #e67e22;
-      color: white;
-      font-size: 18px;
-      border: none;
-      border-radius: 30px;
+      width: 90px;
+      height: 90px;
       cursor: pointer;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-      transition: background-color 0.3s, transform 0.3s;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      border: 2px solid #e6e6e6; /* Soft border color */
     }
-    #resetButton:hover {
-      background-color: #d35400;
-      transform: scale(1.05);
-    }
-    /* Fancy Hover Effects */
+
     .item:hover {
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      transform: scale(1.2);
+      transform: translateY(-10px) scale(1.1);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
     }
-    /* Label Styling */
+
+    /* Item label text below the image */
     .item-label {
       font-size: 14px;
       text-align: center;
       margin-top: 10px;
-      color: #333;
+      color: #555;
+      font-weight: 500;
+    }
+
+    /* Reset Button Styling */
+    #resetButton {
+      background: linear-gradient(135deg, #FFB6B9, #FFC3A0); /* Soft pastel gradient */
+      color: white;
+      padding: 15px 35px;
+      border-radius: 50px;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease, background-color 0.3s ease;
+    }
+
+    #resetButton:hover {
+      background-color: #FF9B9B;
+      transform: scale(1.05);
+    }
+
+    /* Fancy hover effects for food images */
+    .item:hover {
+      transform: scale(1.1) translateY(-6px);
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
     }
   </style>
 </head>
 <body>
   <!-- Logo Image -->
-  <img id="logo" src="/mnt/data/image.png" alt="Logo">
-
-  <!-- Header Text -->
-  <div class="header-text">
-    <h1>Fill Your Plate</h1>
-    <p>Drag and drop food items into the plate!</p>
-  </div>
+  <img id="logo" src="logo.png" alt="Logo">
 
   <div class="container">
     <!-- Inventory -->
@@ -230,4 +233,3 @@
   <script src="game.js"></script>
 </body>
 </html>
-
