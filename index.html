@@ -3,261 +3,289 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fill Your Plate</title>
-  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <title>Drag and Drop Meal Game</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@300&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: 'Raleway', sans-serif;
+      font-family: 'Roboto', sans-serif;
       margin: 0;
       padding: 0;
-      background: linear-gradient(135deg, #f0f4f8, #e0f7fa);
       display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
       flex-direction: column;
-      text-align: center;
-      position: relative;
-    }
-
-    .header {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      display: flex;
       align-items: center;
-      gap: 10px;
+      background-color: #f9f9f9;
     }
 
-    #logo {
-      width: 200px;
-      height: auto;
-    }
-
-    #title {
-      font-family: 'Playfair Display', serif;
-      font-size: 2rem;
-      font-weight: 700;
-      margin-top: 50px;
-      color: #333;
-    }
-
-    .container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 20px;
-      max-width: 1200px;
-      width: 100%;
-      padding: 20px;
-      box-sizing: border-box;
-    }
-
-    #plate {
-      border-radius: 50%;
-      width: 400px;
-      height: 400px;
-      background: url('plate.png') no-repeat center center / cover;
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-      border: 8px solid #f1c40f;
-      position: relative;
+    .game-container {
+      width: 98%;
+      max-width: 1400px;
       margin: 20px auto;
-      overflow: hidden;
     }
 
-    #plate span {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 20px;
+    }
+
+    .logo {
+      width: 100px;
+      height: 100px;
+    }
+
+    h1 {
+      font-family: 'Pacifico', cursive;
+      color: #333;
+      margin: 0;
+    }
+
+    .instructions {
+      font-size: 1.2rem;
+      text-align: center;
+      margin: 10px 0 20px;
+      color: #666;
+    }
+
+    .plate-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .plate {
+      width: 500px;
+      height: 500px;
+      background-color: #fff;
+      border-radius: 50%;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    .placeholder {
+      font-size: 1.5rem;
       color: #aaa;
-      font-size: 22px;
-      font-weight: 700;
-      pointer-events: none;
+      position: absolute;
+    }
+
+    .reset-button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #ff6b6b;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .reset-button:hover {
+      background-color: #ff5252;
+    }
+
+    .items-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .items {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 15px;
+      justify-content: center;
     }
 
     .item {
-      width: 90px;
-      height: 90px;
-      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #fff;
+      padding: 10px;
       border-radius: 12px;
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s, box-shadow 0.3s;
-      border: 2px solid #e6e6e6;
-      position: absolute;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      cursor: grab;
     }
 
     .item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 12px;
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      margin-bottom: 8px;
     }
 
-    .item:hover {
-      transform: translateY(-10px) scale(1.1);
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-    }
-
-    #resetButton {
-      background: linear-gradient(135deg, #FFB6B9, #FFC3A0);
-      color: white;
-      padding: 15px 35px;
-      border-radius: 50px;
-      border: none;
-      font-size: 20px;
-      cursor: pointer;
-      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-      transition: transform 0.2s ease, background-color 0.3s ease;
-      margin-top: 30px;
-    }
-
-    #resetButton:hover {
-      background-color: #FF9B9B;
-      transform: scale(1.05);
-    }
-
-    @media (max-width: 900px) {
-      .container {
-        flex-direction: column;
-        justify-content: center;
-      }
-
-      #plate {
-        width: 300px;
-        height: 300px;
-      }
-
-      .item {
-        width: 70px;
-        height: 70px;
-      }
-
-      #logo {
-        width: 150px;
-      }
-
-      #title {
-        font-size: 1.5rem;
-      }
+    .item span {
+      font-size: 0.9rem;
+      color: #555;
     }
   </style>
 </head>
 <body>
-  <div class="header">
-    <img id="logo" src="logo.png" alt="Logo">
+  <div class="game-container">
+    <header>
+      <img src="logo.png" alt="Brain to Body Logo" class="logo">
+      <h1>Create Your Meal 🍽️</h1>
+    </header>
+    <p class="instructions">Drag and drop the food items onto the plate to create your perfect meal! Click "Reset Plate" to start fresh.</p>
+    <div class="plate-container">
+      <div class="plate" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <p class="placeholder">Drop items here</p>
+      </div>
+      <button class="reset-button" onclick="resetPlate()">Reset Plate</button>
+    </div>
+    <div class="items-container">
+      <h2>Food Items</h2>
+      <div class="items">
+<div class="item" draggable="true" ondragstart="drag(event)" id="chapati">
+  <img src="chapati.png" alt="Chapati">
+  <span>Chapati</span>
+</div>
+
+<div class="item" draggable="true" ondragstart="drag(event)" id="rice">
+  <img src="rice.png" alt="Rice">
+  <span>Rice</span>
+</div>
+
+<div class="item" draggable="true" ondragstart="drag(event)" id="green">
+  <img src="green.png" alt="Green Vegetables">
+  <span>Green Vegetables</span>
+</div>
+
+<div class="item" draggable="true" ondragstart="drag(event)" id="pulses">
+  <img src="pulses.png" alt="Pulses">
+  <span>Pulses</span>
+</div>
+
+<div class="item" draggable="true" ondragstart="drag(event)" id="vegetables">
+  <img src="vegetables.png" alt="Vegetables">
+  <span>Vegetables</span>
+</div>
+
+<div class="item" draggable="true" ondragstart="drag(event)" id="daal">
+  <img src="daal.png" alt="Daal">
+  <span>Daal</span>
+</div>
+
+<div class="item" draggable="true" ondragstart="drag(event)" id="salad">
+  <img src="salad.png" alt="Salad">
+  <span>Salad</span>
+</div>
+
+<div class="item" draggable="true" ondragstart="drag(event)" id="sweets">
+  <img src="sweets.png" alt="Sweets">
+  <span>Sweets</span>
+</div>
+
+<div class="item" draggable="true" ondragstart="drag(event)" id="pastry">
+  <img src="pastry.png" alt="Pastry">
+  <span>Pastry</span>
+</div>
+
+<div class="item" draggable="true" ondragstart="drag(event)" id="chips">
+  <img src="chips.png" alt="Chips">
+  <span>Chips</span>
+</div>
+
+<div class="item" draggable="true" ondragstart="drag(event)" id="buttermilk">
+  <img src="buttermilk.png" alt="Buttermilk">
+  <span>Buttermilk</span>
+</div>
+
+<div class="item" draggable="true" ondragstart="drag(event)" id="curd">
+  <img src="curd.png" alt="Curd">
+  <span>Curd</span>
+</div>
+
+<div class="item" draggable="true" ondragstart="drag(event)" id="softdrink">
+  <img src="softdrink.png" alt="Soft Drink">
+  <span>Soft Drink</span>
+</div>
+
+<div class="item" draggable="true" ondragstart="drag(event)" id="samosa">
+  <img src="samosa.png" alt="Samosa">
+  <span>Samosa</span>
+</div>
+
+<div class="item" draggable="true" ondragstart="drag(event)" id="vadapav">
+  <img src="vadapav.png" alt="Vada Pav">
+  <span>Vada Pav</span>
+</div>
+
+<div class="item" draggable="true" ondragstart="drag(event)" id="burger">
+  <img src="burger.png" alt="Burger">
+  <span>Burger</span>
+</div>
+
+<div class="item" draggable="true" ondragstart="drag(event)" id="sandwich">
+  <img src="sandwich.png" alt="Sandwich">
+  <span>Sandwich</span>
+</div>
+
+<div class="item" draggable="true" ondragstart="drag(event)" id="pizza">
+  <img src="pizza.png" alt="Pizza">
+  <span>Pizza</span>
+</div>
+
+<div class="item" draggable="true" ondragstart="drag(event)" id="papad">
+  <img src="papad.png" alt="Papad">
+  <span>Papad</span>
+</div>
+
+<div class="item" draggable="true" ondragstart="drag(event)" id="chutney">
+  <img src="chutney.png" alt="Chutney">
+  <span>Chutney</span>
+</div>
+
+<div class="item" draggable="true" ondragstart="drag(event)" id="dessert">
+  <img src="dessert.png" alt="Dessert">
+  <span>Dessert</span>
+</div>
+        <!-- Add other food items similarly -->
+      </div>
+    </div>
   </div>
+<script>
+    function allowDrop(event) {
+      event.preventDefault();
+    }
 
-  <h1 id="title">Create Your Meal</h1>
+    function drag(event) {
+      event.dataTransfer.setData("text", event.target.id);
+    }
 
-  <div class="container">
-    <div class="item" style="top: 20%; left: 15%;" draggable="true">
-      <img src="chapati.png" alt="Chapati">
-    </div>
-    <div class="item" style="top: 10%; left: 50%;" draggable="true">
-      <img src="rice.png" alt="Rice">
-    </div>
-    <div class="item" style="top: 30%; left: 80%;" draggable="true">
-      <img src="green.png" alt="Green Sabji">
-    </div>
-    <div class="item" style="top: 70%; left: 40%;" draggable="true">
-      <img src="pulses.png" alt="Pulses">
-    </div>
-    <div class="item" style="top: 50%; left: 5%;" draggable="true">
-      <img src="vegetables.png" alt="Vegetables">
-    </div>
-    <div class="item" style="top: 40%; left: 75%;" draggable="true">
-      <img src="daal.png" alt="Daal">
-    </div>
-    <div class="item" style="top: 60%; left: 30%;" draggable="true">
-      <img src="salad.png" alt="Salad">
-    </div>
-    <div class="item" style="top: 20%; left: 65%;" draggable="true">
-      <img src="sweets.png" alt="Sweets">
-    </div>
-    <div class="item" style="top: 80%; left: 85%;" draggable="true">
-      <img src="pastry.png" alt="Pastry">
-    </div>
-    <div class="item" style="top: 10%; left: 25%;" draggable="true">
-      <img src="chips.png" alt="Chips">
-    </div>
-    <div class="item" style="top: 60%; left: 55%;" draggable="true">
-      <img src="buttermilk.png" alt="Buttermilk">
-    </div>
-    <div class="item" style="top: 75%; left: 20%;" draggable="true">
-      <img src="curd.png" alt="Curd">
-    </div>
-    <div class="item" style="top: 30%; left: 90%;" draggable="true">
-      <img src="softdrink.png" alt="Soft Drink">
-    </div>
-    <div class="item" style="top: 50%; left: 60%;" draggable="true">
-      <img src="samosa.png" alt="Samosa">
-    </div>
-    <div class="item" style="top: 65%; left: 15%;" draggable="true">
-      <img src="vadapav.png" alt="Vada Pav">
-    </div>
-    <div class="item" style="top: 45%; left: 35%;" draggable="true">
-      <img src="burger.png" alt="Burger">
-    </div>
-    <div class="item" style="top: 10%; left: 80%;" draggable="true">
-      <img src="sandwich.png" alt="Sandwich">
-    </div>
-    <div class="item" style="top: 60%; left: 70%;" draggable="true">
-      <img src="pizza.png" alt="Pizza">
-    </div>
-    <div class="item" style="top: 55%; left: 25%;" draggable="true">
-      <img src="papad.png" alt="Papad">
-    </div>
-    <div class="item" style="top: 35%; left: 10%;" draggable="true">
-      <img src="chutney.png" alt="Chutney">
-    </div>
-    <div class="item" style="top: 15%; left: 40%;" draggable="true">
-      <img src="dessert.png" alt="Dessert">
-    </div>
-  </div>
+    function drop(event) {
+      event.preventDefault();
+      const data = event.dataTransfer.getData("text");
+      const item = document.getElementById(data);
+      const plate = event.target.closest(".plate");
 
-  <div id="plate">
-    <span>Drag items here</span>
-  </div>
+      if (plate && !plate.contains(item)) {
+        // Remove placeholder text when the first item is dropped
+        const placeholder = plate.querySelector(".placeholder");
+        if (placeholder) placeholder.style.display = "none";
 
-  <button id="resetButton">Reset Plate</button>
+        plate.appendChild(item);
+      }
+    }
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const items = document.querySelectorAll(".item");
-      const plate = document.getElementById("plate");
-      const resetButton = document.getElementById("resetButton");
+    function resetPlate() {
+      const plate = document.querySelector(".plate");
+      const itemsContainer = document.querySelector(".items");
+      const items = plate.querySelectorAll(".item");
 
-      plate.addEventListener("dragover", (event) => {
-        event.preventDefault();
+      items.forEach(item => {
+        itemsContainer.appendChild(item);
       });
 
-      plate.addEventListener("drop", (event) => {
-        event.preventDefault();
-        const id = event.dataTransfer.getData("text/plain");
-        const draggedItem = document.getElementById(id);
-
-        if (draggedItem) {
-          const clone = draggedItem.cloneNode(true);
-          clone.style.position = "absolute";
-          clone.style.left = `${event.offsetX - clone.offsetWidth / 2}px`;
-          clone.style.top = `${event.offsetY - clone.offsetHeight / 2}px`;
-          plate.appendChild(clone);
-        }
-      });
-
-      items.forEach((item, index) => {
-        item.id = `item-${index}`;
-        item.addEventListener("dragstart", (event) => {
-          event.dataTransfer.setData("text/plain", event.target.id);
-        });
-      });
-
-      resetButton.addEventListener("click", () => {
-        plate.innerHTML = '<span>Drag items here</span>';
-      });
-    });
+      // Restore placeholder text
+      const placeholder = plate.querySelector(".placeholder");
+      if (placeholder) placeholder.style.display = "block";
+    }
   </script>
 </body>
 </html>
