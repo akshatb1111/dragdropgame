@@ -4,270 +4,226 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Drag and Drop Meal Game</title>
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@300&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: 'Roboto', sans-serif;
-      margin: 0;
-      padding: 0;
+      font-family: Arial, sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      background-color: #f9f9f9;
+      margin: 0;
+      background-color: #f4f4f9;
     }
 
-    .game-container {
+    .container {
       display: flex;
-      width: 98%;
-      max-width: 1400px;
-      height: 90vh;
-      margin: 20px auto;
-      border: 1px solid #ccc;
-      border-radius: 12px;
-      overflow: hidden;
-      background-color: #fff;
-    }
-
-    .left-panel {
-      width: 35%;
-      padding: 20px;
-      border-right: 1px solid #ddd;
-      overflow-y: auto;
-    }
-
-    .right-panel {
-      width: 65%;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-    }
-
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
       gap: 20px;
+      width: 80%;
+      max-width: 1200px;
     }
 
-    .logo {
-      width: 80px;
-      height: 80px;
+    .items-panel, .plate-panel {
+      flex: 1;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 20px;
+      background-color: #fff;
     }
 
     h1 {
-      font-family: 'Pacifico', cursive;
-      color: #333;
-      margin: 0;
-    }
-
-    .instructions {
-      font-size: 1rem;
-      margin: 10px 0;
-      color: #666;
-    }
-
-    .plate-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      flex: 1;
-    }
-
-    .plate {
-      width: 400px;
-      height: 400px;
-      background-color: #fff;
-      border-radius: 50%;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      display: flex;
-      flex-wrap: wrap;
-      position: relative;
-      padding: 20px;
-    }
-
-    .placeholder {
-      font-size: 1.2rem;
-      color: #aaa;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      font-size: 1.5rem;
+      margin-bottom: 10px;
       text-align: center;
     }
 
-    .reset-button {
-      margin-top: 20px;
-      padding: 10px 20px;
-      font-size: 1rem;
-      background-color: #ff6b6b;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    .reset-button:hover {
-      background-color: #ff5252;
-    }
-
-    .items {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
+    .items-container {
+      display: flex;
+      flex-wrap: wrap;
       gap: 15px;
     }
 
     .item {
+      width: 100px;
+      height: 120px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      background-color: #fff;
-      padding: 10px;
-      border-radius: 12px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      justify-content: center;
+      background-color: #eaeaea;
+      border: 1px solid #ccc;
+      border-radius: 5px;
       cursor: grab;
     }
 
     .item img {
-      width: 80px;
-      height: 80px;
-      object-fit: contain;
-      margin-bottom: 8px;
+      max-width: 80px;
+      max-height: 80px;
+      margin-bottom: 5px;
     }
 
-    .item span {
-      font-size: 0.9rem;
-      color: #555;
+    .plate {
+      width: 100%;
+      height: 400px;
+      border: 2px dashed #bbb;
+      border-radius: 10px;
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      padding: 10px;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .plate .placeholder {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #bbb;
+      font-size: 1.2rem;
+      text-align: center;
+    }
+
+    .reset-btn {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #ff5c5c;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      margin-top: 15px;
+      cursor: pointer;
+    }
+
+    .reset-btn:hover {
+      background-color: #e04545;
     }
   </style>
 </head>
 <body>
-  <div class="game-container">
-    <div class="left-panel">
-      <header>
-        <img src="logo.png" alt="Brain to Body Logo" class="logo">
-        <h1>Create Your Meal 🍽️</h1>
-      </header>
-      <p class="instructions">Drag and drop the food items onto the plate to create your perfect meal!</p>
-      <div class="items">
-        <!-- Add draggable items -->
-<div class="item" draggable="true" ondragstart="drag(event)" id="chapati">
+  <div class="container">
+    <!-- Items Panel -->
+    <div class="items-panel">
+      <h1>Drag Items</h1>
+      <div class="items-container">
+
+<div class="item" draggable="true" data-id="chapati">
   <img src="chapati.png" alt="Chapati">
   <span>Chapati</span>
 </div>
 
-<div class="item" draggable="true" ondragstart="drag(event)" id="rice">
+<div class="item" draggable="true" data-id="rice">
   <img src="rice.png" alt="Rice">
   <span>Rice</span>
 </div>
 
-<div class="item" draggable="true" ondragstart="drag(event)" id="green">
+<div class="item" draggable="true" data-id="green">
   <img src="green.png" alt="Green Vegetables">
   <span>Green Vegetables</span>
 </div>
 
-<div class="item" draggable="true" ondragstart="drag(event)" id="pulses">
+<div class="item" draggable="true" data-id="pulses">
   <img src="pulses.png" alt="Pulses">
   <span>Pulses</span>
 </div>
 
-<div class="item" draggable="true" ondragstart="drag(event)" id="vegetables">
+<div class="item" draggable="true" data-id="vegetables">
   <img src="vegetables.png" alt="Vegetables">
   <span>Vegetables</span>
 </div>
 
-<div class="item" draggable="true" ondragstart="drag(event)" id="daal">
+<div class="item" draggable="true" data-id="daal">
   <img src="daal.png" alt="Daal">
   <span>Daal</span>
 </div>
 
-<div class="item" draggable="true" ondragstart="drag(event)" id="salad">
+<div class="item" draggable="true" data-id="salad">
   <img src="salad.png" alt="Salad">
   <span>Salad</span>
 </div>
 
-<div class="item" draggable="true" ondragstart="drag(event)" id="sweets">
+<div class="item" draggable="true" data-id="sweets">
   <img src="sweets.png" alt="Sweets">
   <span>Sweets</span>
 </div>
 
-<div class="item" draggable="true" ondragstart="drag(event)" id="pastry">
+<div class="item" draggable="true" data-id="pastry">
   <img src="pastry.png" alt="Pastry">
   <span>Pastry</span>
 </div>
 
-<div class="item" draggable="true" ondragstart="drag(event)" id="chips">
+<div class="item" draggable="true" data-id="chips">
   <img src="chips.png" alt="Chips">
   <span>Chips</span>
 </div>
 
-<div class="item" draggable="true" ondragstart="drag(event)" id="buttermilk">
+<div class="item" draggable="true" data-id="buttermilk">
   <img src="buttermilk.png" alt="Buttermilk">
   <span>Buttermilk</span>
 </div>
 
-<div class="item" draggable="true" ondragstart="drag(event)" id="curd">
+<div class="item" draggable="true" data-id="curd">
   <img src="curd.png" alt="Curd">
   <span>Curd</span>
 </div>
 
-<div class="item" draggable="true" ondragstart="drag(event)" id="softdrink">
+<div class="item" draggable="true" data-id="softdrink">
   <img src="softdrink.png" alt="Soft Drink">
   <span>Soft Drink</span>
 </div>
 
-<div class="item" draggable="true" ondragstart="drag(event)" id="samosa">
+<div class="item" draggable="true" data-id="samosa">
   <img src="samosa.png" alt="Samosa">
   <span>Samosa</span>
 </div>
 
-<div class="item" draggable="true" ondragstart="drag(event)" id="vadapav">
+<div class="item" draggable="true" data-id="vadapav">
   <img src="vadapav.png" alt="Vada Pav">
   <span>Vada Pav</span>
 </div>
 
-<div class="item" draggable="true" ondragstart="drag(event)" id="burger">
+<div class="item" draggable="true" data-id="burger">
   <img src="burger.png" alt="Burger">
   <span>Burger</span>
 </div>
 
-<div class="item" draggable="true" ondragstart="drag(event)" id="sandwich">
+<div class="item" draggable="true" data-id="sandwich">
   <img src="sandwich.png" alt="Sandwich">
   <span>Sandwich</span>
 </div>
 
-<div class="item" draggable="true" ondragstart="drag(event)" id="pizza">
+<div class="item" draggable="true" data-id="pizza">
   <img src="pizza.png" alt="Pizza">
   <span>Pizza</span>
 </div>
 
-<div class="item" draggable="true" ondragstart="drag(event)" id="papad">
+<div class="item" draggable="true" data-id="papad">
   <img src="papad.png" alt="Papad">
   <span>Papad</span>
 </div>
 
-<div class="item" draggable="true" ondragstart="drag(event)" id="chutney">
+<div class="item" draggable="true" data-id="chutney">
   <img src="chutney.png" alt="Chutney">
   <span>Chutney</span>
 </div>
 
-<div class="item" draggable="true" ondragstart="drag(event)" id="dessert">
+<div class="item" draggable="true" data-id="dessert">
   <img src="dessert.png" alt="Dessert">
   <span>Dessert</span>
 </div>
-        <!-- Add other items here -->
+        <!-- Add more items as needed -->
       </div>
     </div>
-    <div class="right-panel">
-      <div class="plate-container">
-        <div class="plate" ondrop="drop(event)" ondragover="allowDrop(event)">
-          <p class="placeholder">Drop items here</p>
-        </div>
-        <button class="reset-button" onclick="resetPlate()">Reset Plate</button>
+
+    <!-- Plate Panel -->
+    <div class="plate-panel">
+      <h1>Your Plate</h1>
+      <div class="plate" ondrop="handleDrop(event)" ondragover="allowDrop(event)">
+        <div class="placeholder">Drop items here!</div>
       </div>
+      <button class="reset-btn" onclick="resetPlate()">Reset Plate</button>
     </div>
   </div>
 
@@ -276,39 +232,161 @@
       event.preventDefault();
     }
 
-    function drag(event) {
-      event.dataTransfer.setData("text", event.target.id);
-    }
-
-    function drop(event) {
+    function handleDrop(event) {
       event.preventDefault();
-      const data = event.dataTransfer.getData("text");
-      const item = document.getElementById(data);
-      const plate = event.target.closest(".plate");
 
-      if (plate) {
-        // Remove placeholder text when an item is added
-        const placeholder = plate.querySelector(".placeholder");
-        if (placeholder) placeholder.style.display = "none";
+      const plate = event.target.closest('.plate');
+      const draggedItemId = event.dataTransfer.getData("text/plain");
 
-        // Clone the dragged item to allow multiple instances
-        const clonedItem = item.cloneNode(true);
-        clonedItem.setAttribute("draggable", false); // Disable dragging for items on the plate
-        clonedItem.style.margin = "5px"; // Add margin for proper spacing
-        plate.appendChild(clonedItem);
+      if (!draggedItemId) return;
 
-        // Limit the number of items on the plate to 12
-        if (plate.children.length > 12) {
-          alert("You can only add up to 12 items on the plate!");
-          plate.removeChild(clonedItem);
-        }
+      const draggedElement = document.querySelector(`.item[data-id="${draggedItemId}"]`);
+      const placeholder = plate.querySelector('.placeholder');
+
+      // Check if the plate already has 12 items
+      if (plate.querySelectorAll('.item').length >= 12) {
+        alert("You can only add up to 12 items on the plate!");
+        return;
       }
+
+      // Remove placeholder
+      if (placeholder) {
+        placeholder.style.display = 'none';
+      }
+
+      // Remove item from left panel and append to plate
+      draggedElement.remove();
+      draggedElement.setAttribute('draggable', false); // Disable dragging after moving to the plate
+      plate.appendChild(draggedElement);
     }
+
+    document.querySelectorAll('.item').forEach(item => {
+      item.addEventListener('dragstart', event => {
+        event.dataTransfer.setData("text/plain", item.dataset.id);
+      });
+    });
 
     function resetPlate() {
-      const plate = document.querySelector(".plate");
-      plate.innerHTML = '<p class="placeholder">Drop items here</p>';
+      const plate = document.querySelector('.plate');
+      const itemsContainer = document.querySelector('.items-container');
+      plate.innerHTML = '<div class="placeholder">Drop items here!</div>';
+
+      // Re-add items to the left panel
+      itemsContainer.innerHTML = `
+        <div class="item" draggable="true" data-id="chapati">
+  <img src="chapati.png" alt="Chapati">
+  <span>Chapati</span>
+</div>
+
+<div class="item" draggable="true" data-id="rice">
+  <img src="rice.png" alt="Rice">
+  <span>Rice</span>
+</div>
+
+<div class="item" draggable="true" data-id="green">
+  <img src="green.png" alt="Green Vegetables">
+  <span>Green Vegetables</span>
+</div>
+
+<div class="item" draggable="true" data-id="pulses">
+  <img src="pulses.png" alt="Pulses">
+  <span>Pulses</span>
+</div>
+
+<div class="item" draggable="true" data-id="vegetables">
+  <img src="vegetables.png" alt="Vegetables">
+  <span>Vegetables</span>
+</div>
+
+<div class="item" draggable="true" data-id="daal">
+  <img src="daal.png" alt="Daal">
+  <span>Daal</span>
+</div>
+
+<div class="item" draggable="true" data-id="salad">
+  <img src="salad.png" alt="Salad">
+  <span>Salad</span>
+</div>
+
+<div class="item" draggable="true" data-id="sweets">
+  <img src="sweets.png" alt="Sweets">
+  <span>Sweets</span>
+</div>
+
+<div class="item" draggable="true" data-id="pastry">
+  <img src="pastry.png" alt="Pastry">
+  <span>Pastry</span>
+</div>
+
+<div class="item" draggable="true" data-id="chips">
+  <img src="chips.png" alt="Chips">
+  <span>Chips</span>
+</div>
+
+<div class="item" draggable="true" data-id="buttermilk">
+  <img src="buttermilk.png" alt="Buttermilk">
+  <span>Buttermilk</span>
+</div>
+
+<div class="item" draggable="true" data-id="curd">
+  <img src="curd.png" alt="Curd">
+  <span>Curd</span>
+</div>
+
+<div class="item" draggable="true" data-id="softdrink">
+  <img src="softdrink.png" alt="Soft Drink">
+  <span>Soft Drink</span>
+</div>
+
+<div class="item" draggable="true" data-id="samosa">
+  <img src="samosa.png" alt="Samosa">
+  <span>Samosa</span>
+</div>
+
+<div class="item" draggable="true" data-id="vadapav">
+  <img src="vadapav.png" alt="Vada Pav">
+  <span>Vada Pav</span>
+</div>
+
+<div class="item" draggable="true" data-id="burger">
+  <img src="burger.png" alt="Burger">
+  <span>Burger</span>
+</div>
+
+<div class="item" draggable="true" data-id="sandwich">
+  <img src="sandwich.png" alt="Sandwich">
+  <span>Sandwich</span>
+</div>
+
+<div class="item" draggable="true" data-id="pizza">
+  <img src="pizza.png" alt="Pizza">
+  <span>Pizza</span>
+</div>
+
+<div class="item" draggable="true" data-id="papad">
+  <img src="papad.png" alt="Papad">
+  <span>Papad</span>
+</div>
+
+<div class="item" draggable="true" data-id="chutney">
+  <img src="chutney.png" alt="Chutney">
+  <span>Chutney</span>
+</div>
+
+<div class="item" draggable="true" data-id="dessert">
+  <img src="dessert.png" alt="Dessert">
+  <span>Dessert</span>
+</div>
+      `;
+
+      // Reattach event listeners to the new items
+      document.querySelectorAll('.item').forEach(item => {
+        item.addEventListener('dragstart', event => {
+          event.dataTransfer.setData("text/plain", item.dataset.id);
+        });
+      });
     }
   </script>
 </body>
 </html>
+
