@@ -154,7 +154,6 @@
       <p class="instructions">Drag and drop the food items onto the plate to create your perfect meal!</p>
       <div class="items">
         <!-- Add draggable items -->
-       
 <div class="item" draggable="true" ondragstart="drag(event)" id="chapati">
   <img src="chapati.png" alt="Chapati">
   <span>Chapati</span>
@@ -287,19 +286,21 @@
       const item = document.getElementById(data);
       const plate = event.target.closest(".plate");
 
-      if (plate && !plate.contains(item)) {
-        // Remove placeholder text when items are added
+      if (plate) {
+        // Remove placeholder text when an item is added
         const placeholder = plate.querySelector(".placeholder");
         if (placeholder) placeholder.style.display = "none";
 
-        const newItem = item.cloneNode(true); // Clone the item for multiple additions
-        newItem.setAttribute("draggable", false); // Disable dragging once on the plate
-        newItem.style.margin = "5px"; // Add margin for spacing on the plate
-        plate.appendChild(newItem);
+        // Clone the dragged item to allow multiple instances
+        const clonedItem = item.cloneNode(true);
+        clonedItem.setAttribute("draggable", false); // Disable dragging for items on the plate
+        clonedItem.style.margin = "5px"; // Add margin for proper spacing
+        plate.appendChild(clonedItem);
 
-        // Allow up to 12 items to fit comfortably
-        if (plate.children.length >= 12) {
-          plate.style.overflow = "auto"; // Enable scroll if items exceed
+        // Limit the number of items on the plate to 12
+        if (plate.children.length > 12) {
+          alert("You can only add up to 12 items on the plate!");
+          plate.removeChild(clonedItem);
         }
       }
     }
