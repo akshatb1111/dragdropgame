@@ -12,38 +12,57 @@
       padding: 0;
       display: flex;
       flex-direction: column;
-      align-items: center;
       background-color: #f9f9f9;
     }
 
     .game-container {
-      width: 98%;
-      max-width: 1400px;
-      margin: 20px auto;
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      height: 100vh;
+    }
+
+    .left-panel {
+      width: 35%;
+      background-color: #ffffff;
+      overflow-y: auto;
+      padding: 20px;
+      box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .right-panel {
+      width: 65%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: #f3f3f3;
+      padding: 20px;
     }
 
     header {
       display: flex;
       align-items: center;
-      justify-content: flex-start;
       gap: 20px;
+      margin-bottom: 20px;
     }
 
     .logo {
-      width: 100px;
-      height: 100px;
+      width: 120px;
+      height: 120px;
     }
 
     h1 {
       font-family: 'Pacifico', cursive;
       color: #333;
       margin: 0;
+      text-align: center;
     }
 
     .instructions {
-      font-size: 1.2rem;
+      font-size: 1rem;
       text-align: center;
-      margin: 10px 0 20px;
+      margin-bottom: 20px;
       color: #666;
     }
 
@@ -51,12 +70,12 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-bottom: 20px;
+      justify-content: center;
     }
 
     .plate {
-      width: 500px;
-      height: 500px;
+      width: 400px;
+      height: 400px;
       background-color: #fff;
       border-radius: 50%;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -68,7 +87,7 @@
     }
 
     .placeholder {
-      font-size: 1.5rem;
+      font-size: 1.2rem;
       color: #aaa;
       position: absolute;
     }
@@ -91,12 +110,11 @@
 
     .items-container {
       text-align: center;
-      margin-top: 20px;
     }
 
     .items {
       display: grid;
-      grid-template-columns: repeat(6, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 15px;
       justify-content: center;
     }
@@ -123,34 +141,44 @@
       font-size: 0.9rem;
       color: #555;
     }
+
+    @media (max-width: 768px) {
+      .game-container {
+        flex-direction: column;
+      }
+
+      .left-panel {
+        width: 100%;
+        height: 50%;
+      }
+
+      .right-panel {
+        width: 100%;
+        height: 50%;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="game-container">
-    <header>
-      <img src="logo.png" alt="Brain to Body Logo" class="logo">
-      <h1>Create Your Meal 🍽️</h1>
-    </header>
-    <p class="instructions">Drag and drop the food items onto the plate to create your perfect meal! Click "Reset Plate" to start fresh.</p>
-    <div class="plate-container">
-      <div class="plate" ondrop="drop(event)" ondragover="allowDrop(event)">
-        <p class="placeholder">Drop items here</p>
-      </div>
-      <button class="reset-button" onclick="resetPlate()">Reset Plate</button>
-    </div>
-    <div class="items-container">
-      <h2>Food Items</h2>
-      <div class="items">
+    <div class="left-panel">
+      <header>
+        <img src="logo.png" alt="Brain to Body Logo" class="logo">
+        <h1>Create Your Meal 🍽️</h1>
+      </header>
+      <div class="items-container">
+        <h2>Food Items</h2>
+        <div class="items">
 <div class="item" draggable="true" ondragstart="drag(event)" id="chapati">
-  <img src="chapati.png" alt="Chapati">
-  <span>Chapati</span>
+  <img src="chapati.png" alt="Chapati">   
+  <span>Chapati</span>         
 </div>
-
+          
 <div class="item" draggable="true" ondragstart="drag(event)" id="rice">
   <img src="rice.png" alt="Rice">
   <span>Rice</span>
 </div>
-
+          
 <div class="item" draggable="true" ondragstart="drag(event)" id="green">
   <img src="green.png" alt="Green Vegetables">
   <span>Green Vegetables</span>
@@ -245,11 +273,22 @@
   <img src="dessert.png" alt="Dessert">
   <span>Dessert</span>
 </div>
-        <!-- Add other food items similarly -->
+        </div>
+      </div>
+    </div>
+
+    <div class="right-panel">
+      <p class="instructions">Drag and drop the food items onto the plate to create your perfect meal! Click "Reset Plate" to start fresh.</p>
+      <div class="plate-container">
+        <div class="plate" ondrop="drop(event)" ondragover="allowDrop(event)">
+          <p class="placeholder">Drop items here</p>
+        </div>
+        <button class="reset-button" onclick="resetPlate()">Reset Plate</button>
       </div>
     </div>
   </div>
-<script>
+
+  <script>
     function allowDrop(event) {
       event.preventDefault();
     }
@@ -265,11 +304,9 @@
       const plate = event.target.closest(".plate");
 
       if (plate && !plate.contains(item)) {
-        // Remove placeholder text when the first item is dropped
         const placeholder = plate.querySelector(".placeholder");
-        if (placeholder) placeholder.style.display = "none";
-
-        plate.appendChild(item);
+        if (placeholder) placeholder.style.display = "none"; // Hide placeholder
+        plate.appendChild(item); // Add the dragged item
       }
     }
 
@@ -282,11 +319,9 @@
         itemsContainer.appendChild(item);
       });
 
-      // Restore placeholder text
       const placeholder = plate.querySelector(".placeholder");
-      if (placeholder) placeholder.style.display = "block";
+      if (placeholder) placeholder.style.display = "block"; // Restore placeholder
     }
   </script>
 </body>
 </html>
-
