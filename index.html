@@ -5,41 +5,64 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Drag and Drop Meal Game</title>
   <style>
+    /* General Styles */
     body {
-      font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
+      font-family: 'Poppins', Arial, sans-serif; /* Fancy, modern font */
       margin: 0;
-      background-color: #f4f4f9;
+      padding: 0;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    .header {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .header img {
+      width: 150px;
+      height: 150px;
+    }
+
+    .header h1 {
+      margin: 10px 0 0;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #4CAF50; /* Green accent color */
     }
 
     .container {
       display: flex;
-      gap: 20px;
-      width: 80%;
-      max-width: 1200px;
+      justify-content: space-between;
+      gap: 40px;
+      padding: 20px 50px;
+      max-width: 1400px;
+      margin: 0 auto;
+      box-sizing: border-box;
     }
 
     .items-panel, .plate-panel {
       flex: 1;
       border: 1px solid #ddd;
-      border-radius: 10px;
-      padding: 20px;
+      border-radius: 15px;
       background-color: #fff;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
     h1 {
-      font-size: 1.5rem;
-      margin-bottom: 10px;
+      font-size: 1.8rem;
       text-align: center;
+      color: #555;
+      font-weight: bold;
     }
 
     .items-container {
       display: flex;
       flex-wrap: wrap;
-      gap: 15px;
+      gap: 20px;
+      max-height: 600px; /* Prevent endless scrolling */
+      overflow-y: auto;
     }
 
     .item {
@@ -49,10 +72,16 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      background-color: #eaeaea;
-      border: 1px solid #ccc;
-      border-radius: 5px;
+      background-color: #e0f7fa;
+      border: 1px solid #00bcd4;
+      border-radius: 10px;
       cursor: grab;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .item:hover {
+      transform: scale(1.1);
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
     }
 
     .item img {
@@ -61,18 +90,26 @@
       margin-bottom: 5px;
     }
 
+    .item span {
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-align: center;
+      color: #00796b;
+    }
+
     .plate {
       width: 100%;
-      height: 400px;
+      height: 500px;
       border: 2px dashed #bbb;
-      border-radius: 10px;
+      border-radius: 15px;
       position: relative;
       display: flex;
       flex-wrap: wrap;
       align-items: flex-start;
-      padding: 10px;
-      gap: 10px;
+      padding: 20px;
+      gap: 15px;
       justify-content: center;
+      background-color: #fafafa;
     }
 
     .plate .placeholder {
@@ -83,26 +120,51 @@
       color: #bbb;
       font-size: 1.2rem;
       text-align: center;
+      font-style: italic;
     }
 
     .reset-btn {
       display: block;
       width: 100%;
-      padding: 10px;
-      background-color: #ff5c5c;
+      padding: 12px;
+      background-color: #ff5252;
       color: white;
       border: none;
-      border-radius: 5px;
-      margin-top: 15px;
+      border-radius: 8px;
+      margin-top: 20px;
+      font-size: 1rem;
+      font-weight: bold;
+      text-transform: uppercase;
       cursor: pointer;
+      transition: background-color 0.3s ease;
     }
 
     .reset-btn:hover {
-      background-color: #e04545;
+      background-color: #e53935;
+    }
+
+    /* Scrollbar Styling */
+    .items-container::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .items-container::-webkit-scrollbar-thumb {
+      background-color: #00bcd4;
+      border-radius: 4px;
+    }
+
+    .items-container::-webkit-scrollbar-thumb:hover {
+      background-color: #00796b;
     }
   </style>
 </head>
 <body>
+  <!-- Header Section with Logo -->
+  <div class="header">
+    <img src="logo.png" alt="Logo">
+    <h1>Meal Builder Game</h1>
+  </div>
+
   <div class="container">
     <!-- Items Panel -->
     <div class="items-panel">
